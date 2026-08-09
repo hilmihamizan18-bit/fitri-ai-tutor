@@ -3,19 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fitri - Physics AI Tutor</title>
+    <title>Fitri - IPA AI Tutor</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-900 text-white min-h-screen flex flex-col justify-between font-sans">
+<body class="bg-slate-900 text-white h-screen flex flex-col justify-between font-sans overflow-hidden">
 
     <!-- Header -->
-    <header class="p-4 bg-slate-800 border-b border-slate-700 flex items-center gap-3">
-        <div class="w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center font-bold text-white border-2 border-indigo-400">
-            F
-        </div>
+    <header class="p-4 bg-slate-800 border-b border-slate-700 flex items-center gap-3 shrink-0">
+        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Fitri" alt="Fitri Avatar" class="w-10 h-10 rounded-full bg-indigo-600 border-2 border-indigo-400 object-cover">
         <div>
-            <h1 class="font-bold text-lg text-indigo-300">Fitri AI Tutor</h1>
-            <p class="text-xs text-slate-400">Asisten Belajar Fisika Interaktif</p>
+            <h1 class="font-bold text-lg text-indigo-300">Fitri AI Tutor IPA</h1>
+            <p class="text-xs text-slate-400">Tutor Biologi, Fisika, & Kimia</p>
         </div>
     </header>
 
@@ -23,18 +21,20 @@
     <main class="flex-1 p-4 overflow-y-auto space-y-4 max-w-2xl mx-auto w-full">
         <!-- Pesan dari Fitri -->
         <div class="flex items-start gap-3">
-            <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center font-bold text-sm shrink-0">F</div>
+            <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Fitri" alt="Fitri" class="w-8 h-8 rounded-full bg-indigo-600 shrink-0">
             <div class="bg-slate-800 p-3 rounded-2xl rounded-tl-none border border-slate-700 text-sm max-w-[80%]">
-                Halo! Aku **Fitri**, tutor fisika kamu. Ada materi atau soal fisika yang mau kamu tanyakan hari ini? 😊
+                Halo! Aku <b>Fitri</b>, tutor IPA kamu. Kamu bisa tanya soal pelajaran 🧪 <b>Kimia</b>, 🧬 <b>Biologi</b>, maupun ⚡ <b>Fisika</b>. Ada materi yang mau kamu tanyakan hari ini? 😊
             </div>
         </div>
     </main>
 
     <!-- Input Form -->
-    <footer class="p-4 bg-slate-800 border-t border-slate-700 max-w-2xl mx-auto w-full">
+    <footer class="p-3 bg-slate-800 border-t border-slate-700 max-w-2xl mx-auto w-full shrink-0">
         <form class="flex gap-2">
-            <input type="text" placeholder="Tanyakan soal fisika..." class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-indigo-500">
-            <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl text-sm font-semibold transition">Kirim</button>
+            <input type="text" placeholder="Tanyakan soal Biologi, Fisika, atau Kimia..." class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-indigo-500">
+            <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl text-sm font-semibold transition shrink-0">
+                Kirim
+            </button>
         </form>
     </footer>
 
