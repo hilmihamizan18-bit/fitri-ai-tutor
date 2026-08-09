@@ -6,7 +6,7 @@
     <title>Fitri - IPA AI Tutor</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Mengunci tinggi layar agar kolom pesan dan input TIDAK TERPOTONG di HP */
+        /* Mengunci tinggi layar HP agar kolom pesan & tombol Kirim SELALU KELIHATAN */
         html, body {
             height: 100%;
             height: 100dvh;
@@ -20,9 +20,9 @@
 
     <!-- Header -->
     <header class="p-3 bg-slate-800 border-b border-slate-700 flex items-center gap-3 shrink-0">
-        <!-- Foto Profil Fitri Asli -->
-        <img src="https://github.com/hilmihamizan18-bit/fitri-ai-tutor/raw/main/public/fitri.jpg" 
-             onerror="this.onerror=null; this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=Fitri';" 
+        <!-- Panggilan gambar dari file di Vercel -->
+        <img src="/public/fitri.jpg" 
+             onerror="this.onerror=null; this.src='/fitri.jpg';" 
              alt="Fitri Avatar" 
              class="w-10 h-10 rounded-full border-2 border-indigo-400 object-cover shrink-0">
         <div>
@@ -35,8 +35,8 @@
     <main class="flex-1 p-4 overflow-y-auto space-y-4 max-w-2xl mx-auto w-full">
         <!-- Pesan dari Fitri -->
         <div class="flex items-start gap-3">
-            <img src="https://github.com/hilmihamizan18-bit/fitri-ai-tutor/raw/main/public/fitri.jpg" 
-                 onerror="this.onerror=null; this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=Fitri';" 
+            <img src="/public/fitri.jpg" 
+                 onerror="this.onerror=null; this.src='/fitri.jpg';" 
                  alt="Fitri" 
                  class="w-8 h-8 rounded-full border border-indigo-400 object-cover shrink-0">
             <div class="bg-slate-800 p-3 rounded-2xl rounded-tl-none border border-slate-700 text-sm max-w-[85%] leading-relaxed">
@@ -45,7 +45,7 @@
         </div>
     </main>
 
-    <!-- Input Form (Diatur agar Wajib Muncul di Bawah Layar HP) -->
+    <!-- Input Form (Selalu Keluar & Kelihatan di Bawah Layar HP) -->
     <footer class="p-3 bg-slate-800 border-t border-slate-700 max-w-2xl mx-auto w-full shrink-0">
         <form class="flex gap-2">
             <input type="text" placeholder="Tanyakan soal Biologi, Fisika, Kimia..." class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
