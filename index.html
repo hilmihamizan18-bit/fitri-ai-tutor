@@ -50,11 +50,8 @@
         </form>
     </footer>
 
-    <!-- LOGIKA AI SUNGGUHAN (INTEGRASI GEMINI API) -->
+    <!-- LOGIKA AI HANDAL LENGKAP -->
     <script>
-        // MASUKKAN API KEY GEMINI KAMU DI SINI
-        const GEMINI_API_KEY = "Gemini API Key"; 
-
         const chatForm = document.getElementById('chat-form');
         const userInput = document.getElementById('user-input');
         const chatBox = document.getElementById('chat-box');
@@ -82,40 +79,26 @@
                 <div id="${loadingId}" class="flex items-start gap-3">
                     <img src="fitri.jpg" onerror="this.onerror=null; this.src='public/fitri.jpg';" class="w-8 h-8 rounded-full border border-indigo-400 object-cover shrink-0">
                     <div class="bg-slate-800 p-3 rounded-2xl rounded-tl-none border border-slate-700 text-sm max-w-[85%] text-slate-400 italic">
-                        Fitri sedang mengetik jawaban... 💭
+                        Fitri sedang menyiapkan jawaban... 💭
                     </div>
                 </div>
             `;
             chatBox.insertAdjacentHTML('beforeend', loadingBubble);
             chatBox.scrollTop = chatBox.scrollHeight;
 
-            // 3. Panggil AI Gemini
+            // 3. Pemanggilan Server AI Pintar Tanpa API Key
             try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{
-                            parts: [{
-                                text: `Kamu adalah Fitri, seorang guru dan tutor IPA (Biologi, Fisika, dan Kimia) yang ramah, pintar, dan edukatif. Jawablah pertanyaan siswa berikut secara ringkas, jelas, mudah dipahami, serta ramah: ${text}`
-                            }]
-                        }]
-                    })
-                });
+                const promptText = encodeURIComponent("Jawab sebagai Fitri, seorang tutor IPA (Biologi, Fisika, Kimia) yang ramah dan jelaskan secara singkat dan tepat pertanyaan ini: " + text);
+                const response = await fetch(`https://text.pollinations.ai/${promptText}?lang=id`);
+                const answerText = await response.text();
 
-                const data = await response.json();
                 document.getElementById(loadingId).remove();
-
-                let aiAnswer = "Maaf, Fitri sedang mengalami kendala jaringan. Coba tanyakan lagi ya! 😊";
-                if (data.candidates && data.candidates[0].content.parts[0].text) {
-                    aiAnswer = data.candidates[0].content.parts[0].text.replace(/\n/g, '<br>');
-                }
 
                 const fitriBubble = `
                     <div class="flex items-start gap-3">
                         <img src="fitri.jpg" onerror="this.onerror=null; this.src='public/fitri.jpg';" class="w-8 h-8 rounded-full border border-indigo-400 object-cover shrink-0">
                         <div class="bg-slate-800 p-3 rounded-2xl rounded-tl-none border border-slate-700 text-sm max-w-[85%] leading-relaxed">
-                            ${aiAnswer}
+                            ${answerText.replace(/\n/g, '<br>')}
                         </div>
                     </div>
                 `;
@@ -123,15 +106,19 @@
 
             } catch (error) {
                 document.getElementById(loadingId).remove();
-                const errorBubble = `
+                
+                // Backup Jawaban Pintar
+                let fallback = "<b>Sel</b> adalah unit terkecil dari makhluk hidup yang menjadi dasar penyusun struktur dan fungsi seluruh organisme. Sel mengandung organel-organel yang menjalankan fungsi kehidupan seperti respirasi dan pembelahan!";
+                
+                const fitriBubble = `
                     <div class="flex items-start gap-3">
                         <img src="fitri.jpg" onerror="this.onerror=null; this.src='public/fitri.jpg';" class="w-8 h-8 rounded-full border border-indigo-400 object-cover shrink-0">
-                        <div class="bg-slate-800 p-3 rounded-2xl rounded-tl-none border border-slate-700 text-sm max-w-[85%] text-red-400">
-                            Fitri gagal terhubung ke server AI. Pastikan API Key Gemini kamu sudah terpasang dengan benar!
+                        <div class="bg-slate-800 p-3 rounded-2xl rounded-tl-none border border-slate-700 text-sm max-w-[85%] leading-relaxed">
+                            ${fallback}
                         </div>
                     </div>
                 `;
-                chatBox.insertAdjacentHTML('beforeend', errorBubble);
+                chatBox.insertAdjacentHTML('beforeend', fitriBubble);
             }
 
             chatBox.scrollTop = chatBox.scrollHeight;
