@@ -6,7 +6,6 @@
     <title>Fitri - IPA AI Tutor</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Mengunci tinggi layar HP agar kolom pesan & tombol Kirim SELALU KELIHATAN */
         html, body {
             height: 100%;
             height: 100dvh;
@@ -20,11 +19,9 @@
 
     <!-- Header -->
     <header class="p-3 bg-slate-800 border-b border-slate-700 flex items-center gap-3 shrink-0">
-        <!-- Panggilan gambar dari file di Vercel -->
-        <img src="/public/fitri.jpg" 
-             onerror="this.onerror=null; this.src='/fitri.jpg';" 
-             alt="Fitri Avatar" 
-             class="w-10 h-10 rounded-full border-2 border-indigo-400 object-cover shrink-0">
+        <div class="w-10 h-10 rounded-full bg-indigo-600 border-2 border-indigo-400 flex items-center justify-center font-bold text-white shrink-0">
+            F
+        </div>
         <div>
             <h1 class="font-bold text-base text-indigo-300 leading-tight">Fitri AI Tutor IPA</h1>
             <p class="text-xs text-slate-400">Tutor Biologi, Fisika, & Kimia</p>
@@ -32,28 +29,91 @@
     </header>
 
     <!-- Chat Container -->
-    <main class="flex-1 p-4 overflow-y-auto space-y-4 max-w-2xl mx-auto w-full">
-        <!-- Pesan dari Fitri -->
+    <main id="chat-box" class="flex-1 p-4 overflow-y-auto space-y-4 max-w-2xl mx-auto w-full">
+        <!-- Pesan Sambutan Fitri -->
         <div class="flex items-start gap-3">
-            <img src="/public/fitri.jpg" 
-                 onerror="this.onerror=null; this.src='/fitri.jpg';" 
-                 alt="Fitri" 
-                 class="w-8 h-8 rounded-full border border-indigo-400 object-cover shrink-0">
+            <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center font-bold text-xs shrink-0">F</div>
             <div class="bg-slate-800 p-3 rounded-2xl rounded-tl-none border border-slate-700 text-sm max-w-[85%] leading-relaxed">
                 Halo! Aku <b>Fitri</b>, tutor IPA kamu. Kamu bisa tanya soal pelajaran 🧪 <b>Kimia</b>, 🧬 <b>Biologi</b>, maupun ⚡ <b>Fisika</b>. Ada materi yang mau kamu tanyakan hari ini? 😊
             </div>
         </div>
     </main>
 
-    <!-- Input Form (Selalu Keluar & Kelihatan di Bawah Layar HP) -->
+    <!-- Input Form -->
     <footer class="p-3 bg-slate-800 border-t border-slate-700 max-w-2xl mx-auto w-full shrink-0">
-        <form class="flex gap-2">
-            <input type="text" placeholder="Tanyakan soal Biologi, Fisika, Kimia..." class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
+        <form id="chat-form" class="flex gap-2">
+            <input type="text" id="user-input" placeholder="Tanyakan soal Biologi, Fisika, Kimia..." required class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
             <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2.5 rounded-xl text-sm font-semibold transition shrink-0">
                 Kirim
             </button>
         </form>
     </footer>
 
+    <!-- LOGIKA AI INTERAKTIF -->
+    <script>
+        const chatForm = document.getElementById('chat-form');
+        const userInput = document.getElementById('user-input');
+        const chatBox = document.getElementById('chat-box');
+
+        chatForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const text = userInput.value.trim();
+            if(!text) return;
+
+            // 1. Tampilkan Pesan User (Kamu)
+            const userBubble = `
+                <div class="flex items-start gap-3 justify-end">
+                    <div class="bg-indigo-600 p-3 rounded-2xl rounded-tr-none text-sm max-w-[85%] leading-relaxed text-white">
+                        ${text}
+                    </div>
+                </div>
+            `;
+            chatBox.insertAdjacentHTML('beforeend', userBubble);
+            userInput.value = '';
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // 2. Tampilkan Loading Sementara dari Fitri
+            const loadingId = 'loading-' + Date.now();
+            const loadingBubble = `
+                <div id="${loadingId}" class="flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center font-bold text-xs shrink-0">F</div>
+                    <div class="bg-slate-800 p-3 rounded-2xl rounded-tl-none border border-slate-700 text-sm max-w-[85%] text-slate-400 italic">
+                        Fitri sedang berpikir... 💭
+                    </div>
+                </div>
+            `;
+            chatBox.insertAdjacentHTML('beforeend', loadingBubble);
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // 3. Respon Otomatis Fitri (Simulasi AI Tutor IPA)
+            setTimeout(() => {
+                document.getElementById(loadingId).remove();
+                
+                let reply = `Pertanyaan yang bagus tentang <b>"${text}"</b>! `;
+                const query = text.toLowerCase();
+
+                if(query.includes('fotosintesis') || query.includes('biologi') || query.includes('sel') || query.includes('tumbuhan')) {
+                    reply += "Dalam Biologi, materi ini berhubungan dengan proses kehidupan organisme. Ada bagian spesifik yang ingin kamu bedah lebih lanjut?";
+                } else if(query.includes('atom') || query.includes('kimia') || query.includes('reaksi') || query.includes('unsur')) {
+                    reply += "Di pelajaran Kimia, hal ini berkaitan dengan struktur materi dan interaksi antar molekul/unsur. Mau bahas rumus atau konsep dasarnya?";
+                } else if(query.includes('gaya') || query.includes('fisika') || query.includes('kecepatan') || query.includes('energi')) {
+                    reply += "Dalam Fisika, ini berhubungan dengan hukum alam dan persamaan matematis. Kamu sedang menyelesaikan soal hitungan atau teori?";
+                } else {
+                    reply += "Sebagai tutor IPA, aku siap bantu jelaskan konsep Biologi, Fisika, maupun Kimia dari topik ini secara rinci. Coba beri tahu aku bagian mana yang paling bikin kamu bingung! 😊";
+                }
+
+                const fitriBubble = `
+                    <div class="flex items-start gap-3">
+                        <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center font-bold text-xs shrink-0">F</div>
+                        <div class="bg-slate-800 p-3 rounded-2xl rounded-tl-none border border-slate-700 text-sm max-w-[85%] leading-relaxed">
+                            ${reply}
+                        </div>
+                    </div>
+                `;
+                chatBox.insertAdjacentHTML('beforeend', fitriBubble);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }, 1000);
+        });
+    </script>
 </body>
 </html>
