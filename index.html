@@ -22,7 +22,7 @@
         <img src="fitri.jpg" 
              onerror="this.onerror=null; this.src='public/fitri.jpg';" 
              alt="Fitri Avatar" 
-             class="w-10 h-10 rounded-full border-2 border-indigo-400 object-cover shrink-0">
+             class="w-8 h-8 rounded-full border border-indigo-400 object-cover shrink-0">
         <div>
             <h1 class="font-bold text-base text-indigo-300 leading-tight">Fitri AI Tutor IPA</h1>
             <p class="text-xs text-slate-400">Tutor Biologi, Fisika, & Kimia</p>
@@ -32,10 +32,10 @@
     <!-- Chat Container -->
     <main id="chat-box" class="flex-1 p-4 overflow-y-auto space-y-4 max-w-2xl mx-auto w-full">
         <!-- Pesan Sambutan Fitri -->
-        <div class="flex items-start gap-3">
-            <img src="fitri.jpg" onerror="this.onerror=null; this.src='public/fitri.jpg';" class="w-8 h-8 rounded-full border border-indigo-400 object-cover shrink-0">
+        <div class="flex items-start gap-2.5">
+            <img src="fitri.jpg" onerror="this.onerror=null; this.src='public/fitri.jpg';" class="w-7 h-7 rounded-full border border-indigo-400 object-cover shrink-0 mt-0.5">
             <div class="bg-slate-800 p-3 rounded-2xl rounded-tl-none border border-slate-700 text-sm max-w-[85%] leading-relaxed">
-                Halo! Aku <b>Fitri</b>, tutor IPA kamu. Kamu bisa tanya soal pelajaran 🧪 <b>Kimia</b>, 🧬 <b>Biologi</b>, maupun ⚡ <b>Fisika</b>. Ada materi yang mau kamu tanyakan hari ini? 😊
+                Halo! Aku <b>Fitri</b>, teman belajar sekaligus tutor IPA kamu. Kamu bisa tanya soal pelajaran 🧪 <b>Kimia</b>, 🧬 <b>Biologi</b>, ⚡ <b>Fisika</b>, atau sekadar curhat dan becanda juga boleh kok! Ada yang mau ditanyakan hari ini? 😊
             </div>
         </div>
     </main>
@@ -43,43 +43,69 @@
     <!-- Input Form -->
     <footer class="p-3 bg-slate-800 border-t border-slate-700 max-w-2xl mx-auto w-full shrink-0">
         <form id="chat-form" class="flex gap-2">
-            <input type="text" id="user-input" placeholder="Tanyakan soal Biologi, Fisika, Kimia..." required class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
+            <input type="text" id="user-input" placeholder="Tanyakan soal IPA atau sapa Fitri..." required class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
             <button type="submit" id="send-btn" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2.5 rounded-xl text-sm font-semibold transition shrink-0">
                 Kirim
             </button>
         </form>
     </footer>
 
-    <!-- LOGIKA AI AKURAT & BEBAS ERROR -->
+    <!-- LOGIKA AI CERDAS & RAMAH -->
     <script>
         const chatForm = document.getElementById('chat-form');
         const userInput = document.getElementById('user-input');
         const chatBox = document.getElementById('chat-box');
 
-        // Database Pengetahuan IPA Cerdas (Backup Cepat & Akurat)
-        function getIPAResponse(query) {
-            const q = query.toLowerCase();
+        // Fungsi Pembersih Teks (Format Rumus Rapi Tanpa Dolar & LaTeX)
+        function formatText(text) {
+            return text
+                .replace(/\$\$/g, '')
+                .replace(/\$/g, '')
+                .replace(/\\times/g, '×')
+                .replace(/\\div/g, '÷')
+                .replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, '($1 / $2)')
+                .replace(/\n/g, '<br>');
+        }
 
+        // Respon Cepat Obrolan Santai & Database IPA Utama
+        function getSmartResponse(query) {
+            const q = query.toLowerCase().trim();
+
+            // Obrolan Santai & Becanda
+            if (q.includes('terima kasih') || q.includes('makasih') || q.includes('makasi') || q.includes('thanks')) {
+                return "Sama-sama! Senang banget bisa bantu kamu. Jangan sungkan buat tanya-tanya lagi ya! 😉✨";
+            }
+            if (q.includes('halo') || q.includes('hai') || q.includes('pagi') || q.includes('malam') || q.includes('siang')) {
+                return "Halo juga! Lagi belajar materi apa nih sekarang? Yuk cerita ke Fitri! 😄";
+            }
+            if (q.includes('siapa kamu') || q.includes('nama kamu')) {
+                return "Aku <b>Fitri</b>, tutor AI kece yang siap nemenin kamu paham materi IPA tanpa bikin pusing! 🧪🧬⚡";
+            }
+            if (q.includes('becanda') || q.includes('lucu') || q.includes('lelucon')) {
+                return "Kenapa sel tumbuhan punya dinding sel, sedangkan sel hewan enggak? Karena kalau sel hewan punya dinding, nanti enggak bisa jalan-jalan ke mall dong! 😂 🏃‍♂️";
+            }
+
+            // Materi IPA Dasar
             if (q.includes('pengertian sel') || q.includes('apa itu sel')) {
-                return "<b>Sel</b> adalah unit terkecil dari struktur dan fungsi pada makhluk hidup. Semua organisme, mulai dari bakteri hingga manusia, tersusun atas sel. Sel melakukan fungsi dasar kehidupan seperti respirasi, pembelahan, dan metabolisme! 🧬";
+                return "<b>Sel</b> adalah unit terkecil penyusun tubuh makhluk hidup. Bayangkan sel itu seperti 'batu bata' penyusun rumah! Di dalam sel, ada organel-organel yang punya tugas masing-masing seperti bernapas, mengolah makanan, dan membelah diri. 🧬";
             }
-            if (q.includes('eukariotik') || q.includes('sel eukariotik')) {
-                return "<b>Sel Eukariotik</b> adalah jenis sel yang sudah memiliki membran inti (nukleus) yang membungkus materi genetiknya (DNA). Contohnya terdapat pada sel tumbuhan, sel hewan, jamur, dan protista! 🌿🦁";
+            if (q.includes('hukum newton')) {
+                return "<b>Hukum Newton</b> ada 3 nih:<br><br>" +
+                       "1. <b>Hukum I Newton (Inersia):</b> Benda diam bakal tetap diam, benda bergerak bakal tetap bergerak kalau enggak ada gaya luar.<br>" +
+                       "2. <b>Hukum II Newton:</b> Percepatan benda sebanding sama gayanya. Rumusnya: <b>F = m × a</b> (Gaya = Massa × Percepatan).<br>" +
+                       "3. <b>Hukum III Newton:</b> Aksi = Reaksi. Kalau kamu dorong tembok, tembok juga mendorong kamu balik dengan gaya sama besar! ⚡";
             }
-            if (q.includes('prokariotik') || q.includes('sel prokariotik')) {
-                return "<b>Sel Prokariotik</b> adalah sel yang TIDAK memiliki membran inti sel. Materi genetiknya tersebar langsung di sitoplasma. Contoh utamanya adalah Bakteri dan Archaea! 🧫";
+            if (q.includes('eukariotik')) {
+                return "<b>Sel Eukariotik</b> adalah sel yang inti selnya sudah dilindungi oleh membran (pintu pembungkus). Contohnya sel tumbuhan, hewan, dan manusia! 🌿🦁";
+            }
+            if (q.includes('prokariotik')) {
+                return "<b>Sel Prokariotik</b> adalah sel yang TIDAK punya membran inti, jadi materi genetiknya (DNA) mengapung bebas di dalam sel. Contohnya bakteri! 🧫";
             }
             if (q.includes('fotosintesis')) {
-                return "<b>Fotosintesis</b> adalah proses pembuatan makanan oleh tumbuhan hijau menggunakan cahaya matahari, air ($H_2O$), dan karbon dioksida ($CO_2$) untuk menghasilkan glukosa ($C_6H_{12}O_6$) dan oksigen ($O_2$)! 🍃☀️";
-            }
-            if (q.includes('atom') || q.includes('struktur atom')) {
-                return "<b>Atom</b> adalah partikel terkecil dari suatu unsur kimia. Atom terdiri dari inti atom (yang berisi <b>Proton</b> bermuatan positif dan <b>Neutron</b> bermuatan netral) serta dikelilingi oleh <b>Elektron</b> bermuatan negatif! ⚛️";
-            }
-            if (q.includes('gaya') || q.includes('hukum newton')) {
-                return "Dalam Fisika, <b>Gaya</b> ($F$) adalah dorongan atau tarikan yang dapat mengubah posisi/kecepatan benda. Menurut Hukum II Newton: $$F = m \\times a$$ (Gaya = Massa $\\times$ Percepatan) ⚡";
+                return "<b>Fotosintesis</b> itu proses 'memasak' makanan sendiri oleh tumbuhan hijau dengan bantuan sinar matahari! Rumus sederhananya:<br><br><b>Air (H₂O) + Karbon Dioksida (CO₂) + Sinar Matahari ➔ Glukosa + Oksigen (O₂)</b> 🍃☀️";
             }
 
-            return null; // Jika pertanyaan di luar database umum
+            return null;
         }
 
         chatForm.addEventListener('submit', async function(e) {
@@ -87,7 +113,7 @@
             const text = userInput.value.trim();
             if(!text) return;
 
-            // 1. Tampilkan Pesan User
+            // 1. Pesan User
             const userBubble = `
                 <div class="flex items-start gap-3 justify-end">
                     <div class="bg-indigo-600 p-3 rounded-2xl rounded-tr-none text-sm max-w-[85%] leading-relaxed text-white">
@@ -99,51 +125,53 @@
             userInput.value = '';
             chatBox.scrollTop = chatBox.scrollHeight;
 
-            // 2. Loading
+            // 2. Loading Indikator
             const loadingId = 'loading-' + Date.now();
             const loadingBubble = `
-                <div id="${loadingId}" class="flex items-start gap-3">
-                    <img src="fitri.jpg" onerror="this.onerror=null; this.src='public/fitri.jpg';" class="w-8 h-8 rounded-full border border-indigo-400 object-cover shrink-0">
+                <div id="${loadingId}" class="flex items-start gap-2.5">
+                    <img src="fitri.jpg" onerror="this.onerror=null; this.src='public/fitri.jpg';" class="w-7 h-7 rounded-full border border-indigo-400 object-cover shrink-0 mt-0.5">
                     <div class="bg-slate-800 p-3 rounded-2xl rounded-tl-none border border-slate-700 text-sm max-w-[85%] text-slate-400 italic">
-                        Fitri sedang berpikir... 💭
+                        Fitri lagi ngetik... 💭
                     </div>
                 </div>
             `;
             chatBox.insertAdjacentHTML('beforeend', loadingBubble);
             chatBox.scrollTop = chatBox.scrollHeight;
 
-            // 3. Cek Jawaban
+            // 3. Proses Jawaban
             setTimeout(async () => {
                 document.getElementById(loadingId)?.remove();
 
-                let answer = getIPAResponse(text);
+                let answer = getSmartResponse(text);
 
-                // Jika tidak ada di DB lokal, panggil API Online cadangan yang stabil
+                // Pencarian Tambahan Jika Luar Materi Dasar
                 if (!answer) {
                     try {
-                        const res = await fetch(`https://api.duckduckgo.com/?q=${encodeURIComponent(text + " IPA sains")}&format=json&no_html=1&skip_disambig=1`);
+                        const res = await fetch(`https://api.duckduckgo.com/?q=${encodeURIComponent(text)}&format=json&no_html=1&skip_disambig=1`);
                         const data = await res.json();
                         if (data.AbstractText) {
                             answer = data.AbstractText;
                         } else {
-                            answer = `Pertanyaan menarik tentang <b>"${text}"</b>! Konsep ini berhubungan erat dengan materi IPA. Bisakah kamu memperjelas bagian mana yang ingin dipelajari (misal: definisi, rumus, atau contoh soalnya)? 😊`;
+                            answer = `Wah, pertanyaan menarik tentang <b>"${text}"</b>! Mau coba bahas dari sudut pandang Biologi, Fisika, atau Kimia nih? Jelaskan dikit lagi ya biar Fitri makin paham! 😊`;
                         }
                     } catch (err) {
-                        answer = `Untuk materi <b>"${text}"</b>, coba perjelas istilah atau topiknya ya! Fitri siap membantu menjelaskan konsep Biologi, Fisika, maupun Kimia. 🧪🧬⚡`;
+                        answer = `Paham-paham! Soal <b>"${text}"</b> ini menarik banget. Coba tanya lagi dengan kata kunci lebih lengkap biar Fitri bisa jelaskan lebih detail ya! 🧪⚡`;
                     }
                 }
 
+                // Tampilkan Jawaban Bersih tanpa Dolar
+                const cleanAnswer = formatText(answer);
                 const fitriBubble = `
-                    <div class="flex items-start gap-3">
-                        <img src="fitri.jpg" onerror="this.onerror=null; this.src='public/fitri.jpg';" class="w-8 h-8 rounded-full border border-indigo-400 object-cover shrink-0">
+                    <div class="flex items-start gap-2.5">
+                        <img src="fitri.jpg" onerror="this.onerror=null; this.src='public/fitri.jpg';" class="w-7 h-7 rounded-full border border-indigo-400 object-cover shrink-0 mt-0.5">
                         <div class="bg-slate-800 p-3 rounded-2xl rounded-tl-none border border-slate-700 text-sm max-w-[85%] leading-relaxed">
-                            ${answer}
+                            ${cleanAnswer}
                         </div>
                     </div>
                 `;
                 chatBox.insertAdjacentHTML('beforeend', fitriBubble);
                 chatBox.scrollTop = chatBox.scrollHeight;
-            }, 600);
+            }, 500);
         });
     </script>
 </body>
